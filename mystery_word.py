@@ -1,11 +1,44 @@
 import random
 
-
 with open("/usr/share/dict/words", "r") as f:
     list_of_words = []
 
     for line in f:
         list_of_words += line.split()
+
+def get_guess_letter():
+    guess_letter = input("guess a letter: ").lower()
+    return guess_letter
+
+def guess_in_word():
+    wordword = random_word()
+    guess_letter = get_guess_letter().lower()
+    #while len(wordword) >
+    if guess_letter in wordword:
+        print("yes")
+        print (guess_in(guess_letter))
+        return (guess_in(guess_letter))
+        return True
+    else:
+        print("NO")
+        print (guess_not_in(guess_letter))
+        return (guess_not_in(guess_letter))
+        return False
+
+
+def guess_not_in(guess_letter):
+    bad_guess_list = []
+    bad_guess_list += guess_letter
+    return bad_guess_list
+
+def guess_in(guess_letter):
+    good_guess_list = []
+    good_guess_list += guess_letter
+    return good_guess_list
+
+def draw_word():
+    print(len(random_word()) * "_ ")
+
 
 def three_lists():
     easy_word_list = []
@@ -33,9 +66,10 @@ def three_lists():
         return hard_word_list
 
 def random_word():
-    random_word = random.choice(three_lists())
+    random_word = random.choice(three_lists()).lower()
     print(random_word)
     print("your secret word contains {} letters.".format(len(random_word)) )
+    return(random_word)
 
 def choose_difficulty():
     dif_choice = input("chose easy/normal/hard mode: ").lower()
@@ -47,8 +81,9 @@ def choose_difficulty():
         return 'hard'
 
 def main():
-    random_word()
-    pass
+    draw_word()
+    get_guess_letter()
+    guess_in_word()
 
 
 
