@@ -35,6 +35,7 @@ def three_lists():
 def random_word():
     random_word = random.choice(three_lists())
     print(random_word)
+    print("your secret word contains {} letters.".format(len(random_word)) )
 
 def choose_difficulty():
     dif_choice = input("chose easy/normal/hard mode: ").lower()
