@@ -10,34 +10,78 @@ def get_guess_letter():
     guess_letter = input("guess a letter: ").lower()
     return guess_letter
 
-def guess_in_word():
-    wordword = random_word()
-    guess_letter = get_guess_letter().lower()
-    #while len(wordword) >
-    if guess_letter in wordword:
+def guess_in_word(guess, master_word, good_guess_list, bad_guess_list):
+    guess = get_guess_letter().lower()
+    success = 0
+    # list_of_guesses += guess
+    # print(list_of_guesses)
+    if guess in master_word:
         print("yes")
-        print (guess_in(guess_letter))
-        return (guess_in(guess_letter))
-        return True
+        success += 1
+        return word_maker(guess, master_word, good_guess_list, bad_guess_list)
     else:
         print("NO")
-        print (guess_not_in(guess_letter))
-        return (guess_not_in(guess_letter))
-        return False
+
+        return word_maker(guess, master_word, good_guess_list, bad_guess_list)
 
 
-def guess_not_in(guess_letter):
-    bad_guess_list = []
-    bad_guess_list += guess_letter
-    return bad_guess_list
+def guess_not_in(guess):
+    if guess not in bad_guess_list:
+        bad_guess_list += guess
+        return bad_guess_list
+    else:
+        print(bad_guess_list)
+        return bad_guess_list
 
-def guess_in(guess_letter):
-    good_guess_list = []
-    good_guess_list += guess_letter
+def guess_in(guess):
+    good_guess_list += guess
     return good_guess_list
 
-def draw_word():
-    print(len(random_word()) * "_ ")
+def draw_word(word):
+    print(len(word) * "_ ")
+
+# def printer(guess, master_word):
+#     replace_value = master_word.index(guess)
+#     gap_word = len(master_word) * "_"
+#     gap_word = gap_word[:replace_value] + guess + gap_word[replace_value:]
+#     master_word = master_word[:replace_value] + "_" + master_word[replace_value + 1:]
+#     while guess in master_word:
+#         gap_word
+#     # while guess in master_word:
+
+
+    # print(gap_word)
+
+def word_maker(guess, master_word, good_guess_list, bad_guess_list):
+    semi_string = ''
+    i = 0
+    for character in master_word:
+        i += 1
+        if character == guess:
+            #guess_in(guess)
+            semi_string += character
+            #print(semi_string)
+            if i == len(master_word):
+                print(semi_string)
+                good_guess_list += guess
+                print(bad_guess_list)
+                print(good_guess_list)
+                return guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
+        else:
+            semi_string += '_ '
+            if guess in master_word:
+                if i == len(master_word):
+                    good_guess_list += guess
+                    print(semi_string)
+                    return guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
+            else:
+                bad_guess_list += guess
+
+                print(bad_guess_list)
+                print(good_guess_list)
+                guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
+                print(semi_string)
+    #print(semi_string)
 
 
 def three_lists():
@@ -81,11 +125,13 @@ def choose_difficulty():
         return 'hard'
 
 def main():
-    draw_word()
-    get_guess_letter()
-    guess_in_word()
-
-
+    bad_guess_list = []
+    good_guess_list = []
+    list_of_guesses = []
+    master_word = random_word()
+    guess = ''
+    draw_word(master_word)
+    guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
 
 
 
