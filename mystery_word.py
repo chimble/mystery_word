@@ -15,11 +15,8 @@ def guess_in_word(guess, master_word, good_guess_list, bad_guess_list):
     # list_of_guesses += guess
     # print(list_of_guesses)
     if guess in master_word:
-        print("yes")
         return word_maker(guess, master_word, good_guess_list, bad_guess_list)
     else:
-        print("NO")
-
         return word_maker(guess, master_word, good_guess_list, bad_guess_list)
 
 
@@ -52,24 +49,33 @@ def draw_word(word):
 
 def word_maker(guess, master_word, good_guess_list, bad_guess_list):
     semi_string = ''
+
     i = 0
     if len(bad_guess_list) == 7:
         lose(master_word)
         replay_game()
+
     for character in master_word:
         i += 1
-
         if character == guess:
             semi_string += character
+            if semi_string == master_word:
+                win()
+                replay_game()
             if i == len(master_word):
+                if semi_string == master_word:
+                    win()
+                    replay_game()
                 print(semi_string)
                 good_guess_list += guess
-                print(bad_guess_list)
                 #print(good_guess_list)
                 return guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
         else:
             if character in good_guess_list:
                 semi_string += character
+                if semi_string == master_word:
+                    win()
+                    replay_game()
             else:
                 semi_string += ' _ '
             if guess in master_word:
@@ -84,14 +90,21 @@ def word_maker(guess, master_word, good_guess_list, bad_guess_list):
             else:
                 if guess not in bad_guess_list:
                     bad_guess_list += guess
+                else:
+                    print("you already guessed that letter")
                 print(semi_string)
+                print("Bad Guesses: ")
                 print(bad_guess_list)
                 #print(good_guess_list)
                 guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
+    return semi_string
 
 def lose(master_word):
     answer = master_word
     print("you lose. word was: {}".format(master_word))
+
+def win():
+    print("YOU WIN!")
 
 def replay_game():
     play_again = input("would you like to play again? Y/n ".lower())
@@ -149,6 +162,7 @@ def main():
     guess = ''
     draw_word(master_word)
     guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
+
 
 
 
