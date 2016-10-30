@@ -55,6 +55,9 @@ def draw_word(word):
 def word_maker(guess, master_word, good_guess_list, bad_guess_list):
     semi_string = ''
     i = 0
+    if len(bad_guess_list) == 7:
+        lose(master_word)
+        replay_game()
     for character in master_word:
         i += 1
         if character == guess:
@@ -65,7 +68,7 @@ def word_maker(guess, master_word, good_guess_list, bad_guess_list):
                 print(semi_string)
                 good_guess_list += guess
                 print(bad_guess_list)
-                print(good_guess_list)
+                #print(good_guess_list)
                 return guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
         else:
             semi_string += '_ '
@@ -74,15 +77,26 @@ def word_maker(guess, master_word, good_guess_list, bad_guess_list):
                     good_guess_list += guess
                     print(semi_string)
                     return guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
+            elif i < len(master_word):
+                continue
             else:
                 bad_guess_list += guess
-
-                print(bad_guess_list)
-                print(good_guess_list)
-                guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
                 print(semi_string)
+                print(bad_guess_list)
+                #print(good_guess_list)
+                guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
     #print(semi_string)
+def lose(master_word):
+    answer = master_word
+    print("you lose. word was: {}".format(master_word))
 
+def replay_game():
+    play_again = input("would you like to play again? Y/n ".lower())
+    if play_again == 'y':
+        main()
+    else:
+        print("thanks for playing")
+        exit()
 
 def three_lists():
     easy_word_list = []
@@ -100,7 +114,7 @@ def three_lists():
         elif len(word) == 8:
             normal_word_list += word.split()
             hard_word_list += word.split()
-        else:
+        elif len(word) > 8:
             hard_word_list += word.split()
     if dif_choice == 'easy':
         return easy_word_list
