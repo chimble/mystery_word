@@ -12,12 +12,10 @@ def get_guess_letter():
 
 def guess_in_word(guess, master_word, good_guess_list, bad_guess_list):
     guess = get_guess_letter().lower()
-    success = 0
     # list_of_guesses += guess
     # print(list_of_guesses)
     if guess in master_word:
         print("yes")
-        success += 1
         return word_maker(guess, master_word, good_guess_list, bad_guess_list)
     else:
         print("NO")
@@ -60,10 +58,9 @@ def word_maker(guess, master_word, good_guess_list, bad_guess_list):
         replay_game()
     for character in master_word:
         i += 1
+
         if character == guess:
-            #guess_in(guess)
             semi_string += character
-            #print(semi_string)
             if i == len(master_word):
                 print(semi_string)
                 good_guess_list += guess
@@ -71,21 +68,27 @@ def word_maker(guess, master_word, good_guess_list, bad_guess_list):
                 #print(good_guess_list)
                 return guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
         else:
-            semi_string += '_ '
+            if character in good_guess_list:
+                semi_string += character
+            else:
+                semi_string += ' _ '
             if guess in master_word:
                 if i == len(master_word):
                     good_guess_list += guess
                     print(semi_string)
                     return guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
+
             elif i < len(master_word):
+                #semi_string += '_ '
                 continue
             else:
-                bad_guess_list += guess
+                if guess not in bad_guess_list:
+                    bad_guess_list += guess
                 print(semi_string)
                 print(bad_guess_list)
                 #print(good_guess_list)
                 guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
-    #print(semi_string)
+
 def lose(master_word):
     answer = master_word
     print("you lose. word was: {}".format(master_word))
