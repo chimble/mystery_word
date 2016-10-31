@@ -3,7 +3,6 @@ import random
 
 with open("/usr/share/dict/words", "r") as f:
     list_of_words = []
-
     for line in f:
         list_of_words += line.split()
 
@@ -22,10 +21,7 @@ def get_guess_letter():
 
 def guess_in_word(guess, master_word, good_guess_list, bad_guess_list):
     guess = get_guess_letter()
-    if guess in master_word:
-        return word_maker(guess, master_word, good_guess_list, bad_guess_list)
-    else:
-        return word_maker(guess, master_word, good_guess_list, bad_guess_list)
+    word_maker(guess, master_word, good_guess_list, bad_guess_list)
 
 def draw_word(word):
     print(len(word) * "_ ")
