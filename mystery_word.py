@@ -45,24 +45,27 @@ def word_maker(guess, master_word, good_guess_list, bad_guess_list):
                 print(semi_string)
                 good_guess_list += guess
                 return guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
+                if "_" not in semi_string:
+                    win(master_word)
+                    replay_game()
         else:
             if character in good_guess_list:
                 semi_string += character
                 semi_string += ' '
             else:
                 semi_string += '_ '
-
             if guess in master_word:
                 if i == len(master_word):
-                    if "_" not in semi_string:
-                        win(master_word)
-                        replay_game()
                     print("you have {} guesses left: ".format(8 - len(bad_guess_list)))
                     good_guess_list += guess
                     print("Bad Guesses: ")
                     print(bad_guess_list)
                     print(semi_string)
+                    if "_" not in semi_string:
+                        win(master_word)
+                        replay_game()
                     return guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
+
             elif i < len(master_word):
                 continue
             else:
@@ -77,9 +80,6 @@ def word_maker(guess, master_word, good_guess_list, bad_guess_list):
                 print(bad_guess_list)
                 print("you have {} guesses left: ".format(8 - len(bad_guess_list)))
                 print(semi_string)
-                if "_" not in semi_string:
-                    win(master_word)
-                    replay_game()
                 guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
     return semi_string
 
