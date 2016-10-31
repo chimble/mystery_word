@@ -27,18 +27,6 @@ def guess_in_word(guess, master_word, good_guess_list, bad_guess_list):
     else:
         return word_maker(guess, master_word, good_guess_list, bad_guess_list)
 
-def guess_not_in(guess):
-    if guess not in bad_guess_list:
-        bad_guess_list += guess
-        return bad_guess_list
-    else:
-        print(bad_guess_list)
-        return bad_guess_list
-
-def guess_in(guess):
-    good_guess_list += guess
-    return good_guess_list
-
 def draw_word(word):
     print(len(word) * "_ ")
 
