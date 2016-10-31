@@ -8,12 +8,19 @@ with open("/usr/share/dict/words", "r") as f:
 
 def get_guess_letter():
     guess_letter = input("guess a letter: ").lower()
-    return guess_letter
+    while True:
+        if guess_letter.isalpha():
+            if len(guess_letter) == 1:
+                return guess_letter
+            else:
+                print("you entered too many letters")
+                guess_letter = input("guess a letter: ").lower()
+        else:
+            print("please enter a LETTER")
+            guess_letter = input("guess a letter: ").lower()
 
 def guess_in_word(guess, master_word, good_guess_list, bad_guess_list):
-    guess = get_guess_letter().lower()
-    # list_of_guesses += guess
-    # print(list_of_guesses)
+    guess = get_guess_letter()
     if guess in master_word:
         return word_maker(guess, master_word, good_guess_list, bad_guess_list)
     else:
@@ -35,18 +42,6 @@ def guess_in(guess):
 def draw_word(word):
     print(len(word) * "_ ")
 
-# def printer(guess, master_word):
-#     replace_value = master_word.index(guess)
-#     gap_word = len(master_word) * "_"
-#     gap_word = gap_word[:replace_value] + guess + gap_word[replace_value:]
-#     master_word = master_word[:replace_value] + "_" + master_word[replace_value + 1:]
-#     while guess in master_word:
-#         gap_word
-#     # while guess in master_word:
-
-
-    # print(gap_word)
-
 def word_maker(guess, master_word, good_guess_list, bad_guess_list):
     semi_string = ''
 
@@ -60,11 +55,11 @@ def word_maker(guess, master_word, good_guess_list, bad_guess_list):
         if character == guess:
             semi_string += character
             if semi_string == master_word:
-                win()
+                win(master_word)
                 replay_game()
             if i == len(master_word):
                 if semi_string == master_word:
-                    win()
+                    win(master_word)
                     replay_game()
                 print(semi_string)
                 good_guess_list += guess
@@ -74,13 +69,15 @@ def word_maker(guess, master_word, good_guess_list, bad_guess_list):
             if character in good_guess_list:
                 semi_string += character
                 if semi_string == master_word:
-                    win()
+                    win(master_word)
                     replay_game()
             else:
                 semi_string += ' _ '
             if guess in master_word:
                 if i == len(master_word):
                     good_guess_list += guess
+                    print("Bad Guesses: ")
+                    print(bad_guess_list)
                     print(semi_string)
                     return guess_in_word(guess, master_word, good_guess_list, bad_guess_list)
 
@@ -103,8 +100,8 @@ def lose(master_word):
     answer = master_word
     print("you lose. word was: {}".format(master_word))
 
-def win():
-    print("YOU WIN!")
+def win(master_word):
+    print("YOU WIN! word was: {}".format(master_word))
 
 def replay_game():
     play_again = input("would you like to play again? Y/n ".lower())
@@ -157,7 +154,6 @@ def choose_difficulty():
 def main():
     bad_guess_list = []
     good_guess_list = []
-    list_of_guesses = []
     master_word = random_word()
     guess = ''
     draw_word(master_word)
