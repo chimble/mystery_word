@@ -23,6 +23,11 @@ def get_guess_letter():
 
 def draw_word(word):
     print(len(word) * "_ ")
+    return(len(word) * "_ ")
+
+
+def fake_function(word):
+    return word
 
 
 def word_maker(guess, master_word, good_guess_list, bad_guess_list):
@@ -106,11 +111,11 @@ def replay_game():
         exit()
 
 
-def three_lists():
+def three_lists(dif_choice):
     easy_word_list = []
     normal_word_list = []
     hard_word_list = []
-    dif_choice = choose_difficulty()
+    # dif_choice = choose_difficulty()
     for word in list_of_words:
         if len(word) == 4 or len(word) == 5:
             easy_word_list += word.split()
@@ -132,8 +137,8 @@ def three_lists():
         return hard_word_list
 
 
-def random_word():
-    random_word = random.choice(three_lists()).lower()
+def random_word(dif_choice):
+    random_word = random.choice(three_lists(dif_choice)).lower()
     print("your secret word contains {} letters.".format(len(random_word)))
     return(random_word)
 
@@ -151,10 +156,11 @@ def choose_difficulty():
 def main():
     bad_guess_list = []
     good_guess_list = []
-    master_word = random_word()
+    dif_choice = choose_difficulty()
+    master_word = random_word(dif_choice)
     draw_word(master_word)
     guess = get_guess_letter()
     word_maker(guess, master_word, good_guess_list, bad_guess_list)
 
-
-main()
+if __name__ == "__main__":
+    main()
